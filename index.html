@@ -33,6 +33,11 @@ $('m1').onclick=()=>{st.mode=1;save();render()};$('m2').onclick=()=>{st.mode=2;s
 const oldRender=render;render=function(){oldRender();setTimeout(loadPosters,0)};
 
 const AMP_ART={
+  'Spider-Man 2 (2004)':{page:'https://alternativemovieposters.com/amp/spider-man-2-by-ben-terdik/',artist:'Ben Terdik'},
+  'Thor: The Dark World':{page:'https://alternativemovieposters.com/amp/thor-the-dark-world-by-ken-taylor/',artist:'Ken Taylor'},
+  'Daredevil S1':{page:'https://alternativemovieposters.com/amp/daredevil-by-marko-manev/',artist:'Marko Manev'},
+  'Daredevil S2':{page:'https://alternativemovieposters.com/amp/daredevil-punisher-art-by-nikita-kaun/',artist:'Nikita Kaun'},
+  'Daredevil S3':{page:'https://alternativemovieposters.com/amp/daredevil-by-greg-ruth/',artist:'Greg Ruth'},
   'Spider-Man (2002)':{page:'https://alternativemovieposters.com/amp/spider-man-by-marko-manev/',artist:'Marko Manev'},
   'The Amazing Spider-Man (2012)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-by-carles-ganya/',artist:'Carles Ganya'},
   'Captain America: The First Avenger':{page:'https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-shokxonestudios/',artist:'ShokXoneStudios'},
@@ -53,12 +58,12 @@ const AMP_ART={
   'WandaVision':{page:'https://alternativemovieposters.com/amp/wandavision-by-matt-ferguson/',artist:'Matt Ferguson'}
 };
 async function ampPreview(a){
-  const k='amp-og:'+a.page;let u=localStorage.getItem(k);if(u)return u;
+  const k='amp-og-v2:'+a.page;let u=localStorage.getItem(k);if(u)return u;
   try{const r=await fetch('https://api.microlink.io/?url='+encodeURIComponent(a.page));if(!r.ok)return'';const j=await r.json();u=j&&j.data&&j.data.image&&j.data.image.url||'';if(u)localStorage.setItem(k,u);return u}catch(e){return''}
 }
 async function wikiPoster(raw){
   let title=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
-  const aliases={'The Avengers':'The Avengers (2012 film)','The Incredible Hulk':'The Incredible Hulk (film)','The Wolverine':'The Wolverine (film)','Logan':'Logan (film)','X-Men':'X-Men (film)','Eternals':'Eternals (film)','Hawkeye':'Hawkeye (2021 TV series)','Echo':'Echo (miniseries)','Ironheart':'Ironheart (miniseries)','Moon Knight':'Moon Knight (miniseries)','Ms. Marvel':'Ms. Marvel (miniseries)','Wonder Man':'Wonder Man (miniseries)','The Defenders':'The Defenders (miniseries)','Daredevil':'Daredevil (TV series)','Jessica Jones':'Jessica Jones (TV series)','Luke Cage':'Luke Cage (TV series)','Iron Fist':'Iron Fist (TV series)','The Punisher':'The Punisher (TV series)','VisionQuest':'VisionQuest (TV series)'};
+  const aliases={'Spider-Man 3 (2007)':'Spider-Man 3','The Avengers':'The Avengers (2012 film)','The Incredible Hulk':'The Incredible Hulk (film)','The Wolverine':'The Wolverine (film)','Logan':'Logan (film)','X-Men':'X-Men (film)','Eternals':'Eternals (film)','Hawkeye':'Hawkeye (2021 TV series)','Echo':'Echo (miniseries)','Ironheart':'Ironheart (miniseries)','Moon Knight':'Moon Knight (miniseries)','Ms. Marvel':'Ms. Marvel (miniseries)','Wonder Man':'Wonder Man (miniseries)','The Defenders':'The Defenders (miniseries)','Daredevil':'Daredevil (TV series)','Jessica Jones':'Jessica Jones (TV series)','Luke Cage':'Luke Cage (TV series)','Iron Fist':'Iron Fist (TV series)','The Punisher':'The Punisher (TV series)','VisionQuest':'VisionQuest (TV series)'};
   for(const k in aliases)if(title===k||title.startsWith(k+' S'))title=aliases[k];
   const ck='poster:'+title;let u=localStorage.getItem(ck);if(u)return u;
   try{let r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title));if(r.ok){let j=await r.json();u=j.thumbnail&&j.thumbnail.source||''}if(!u){r=await fetch('https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1&prop=pageimages&pithumbsize=400&format=json&origin=*');if(r.ok){let j=await r.json(),pages=j.query&&j.query.pages;let q=pages&&Object.values(pages)[0];u=q&&q.thumbnail&&q.thumbnail.source||''}}if(u)localStorage.setItem(ck,u);return u}catch(e){return''}
@@ -68,7 +73,7 @@ async function loadPosters(){
   for(const node of nodes){
     const raw=decodeURIComponent(node.dataset.poster||'');
     const base=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
-    const a=AMP_ART[base]; let u=a?await ampPreview(a):''; if(!u)u=await wikiPoster(raw); if(!u)continue;
+    const a=AMP_ART[base]; let u=a?await ampPreview(a):''; if(!u&&!a)u=await wikiPoster(raw); if(!u&&a){node.textContent='AMP';node.classList.add('amp-missing');node.onclick=()=>window.open(a.page,'_blank','noopener');node.title=base+' — open on Alternative Movie Posters';continue} if(!u)continue;
     const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt=base+' poster';img.src=u;
     if(a){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — Alternative Movie Posters';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP';link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
   }
