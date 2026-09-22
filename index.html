@@ -6,7 +6,7 @@ main{max-width:820px;margin:auto;padding:18px}.pace-wrap{background:rgba(95,95,9
 .pace-btn.active{background:rgba(68,68,68,.78);box-shadow:inset 0 0 0 1px rgba(140,160,190,.42)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.stat{background:rgba(70,70,70,.58);border-radius:22px;padding:16px}
 .label,.phase-sub,.date{color:var(--muted)}.big{font-size:24px;margin-top:4px}.notice{margin-top:16px;background:rgba(4,13,27,.72);border-left:5px solid var(--accent);border-radius:0 18px 18px 0;padding:18px 20px}
-.phase{margin:28px 0}.phase-title{font-size:22px;font-weight:600}.phase-sub{margin:3px 0 12px}.poster-stack{display:flex;gap:6px;flex:0 0 auto;align-self:center}.poster{width:64px;height:96px;object-fit:cover;border-radius:10px;background:#222;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.poster-link{position:relative;display:block;width:64px;height:96px;flex:0 0 auto}.poster-link .poster{width:100%;height:100%}.poster-credit{position:absolute;left:4px;right:4px;bottom:4px;padding:2px 4px;border-radius:6px;background:rgba(0,0,0,.72);font-size:8px;line-height:1.15;color:#eee;text-align:center;opacity:.9}.poster-fallback{width:64px;height:96px;border-radius:10px;background:linear-gradient(145deg,#26080d,#17171b);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.day-card{display:flex;gap:14px;background:rgba(24,24,24,.54);border:1px solid rgba(105,105,105,.28);border-radius:20px;padding:16px;min-height:108px;margin:10px 0}
+.phase{margin:28px 0}.phase-title{font-size:22px;font-weight:600}.phase-sub{margin:3px 0 12px}.poster-stack{display:flex;gap:6px;flex:0 0 auto;align-self:center}.poster{width:64px;height:96px;object-fit:cover;border-radius:10px;background:#222;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.poster-link{position:relative;display:block;width:64px;height:96px;flex:0 0 auto}.poster-link .poster{width:100%;height:100%}.poster-credit{position:absolute;right:4px;bottom:4px;padding:2px 5px;border-radius:6px;background:rgba(0,0,0,.76);font-size:8px;line-height:1.15;color:#eee;font-weight:700;letter-spacing:.04em;opacity:.92}.poster-fallback{width:64px;height:96px;border-radius:10px;background:linear-gradient(145deg,#26080d,#17171b);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.day-card{display:flex;gap:14px;background:rgba(24,24,24,.54);border:1px solid rgba(105,105,105,.28);border-radius:20px;padding:16px;min-height:108px;margin:10px 0}
 .day-card.done{background:rgba(38,38,38,.62)}.day-pill{display:inline-block;border-radius:999px;padding:5px 13px;background:rgba(5,20,43,.86);font-size:14px;font-weight:600}.date{margin-left:10px}.title{display:block;font-size:20px;line-height:1.4;margin-top:12px}.plus{font-size:14px;color:var(--muted)}
 input[type=checkbox]{margin-top:7px;transform:scale(1.25)}.footer{display:flex;justify-content:space-between;align-items:center;margin:28px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.reset{border:0;background:rgba(70,70,70,.45);color:var(--text);border-radius:14px;padding:11px 14px}
 @media(max-width:520px){.stats{grid-template-columns:1fr}.title{font-size:18px}}
@@ -33,20 +33,24 @@ $('m1').onclick=()=>{st.mode=1;save();render()};$('m2').onclick=()=>{st.mode=2;s
 const oldRender=render;render=function(){oldRender();setTimeout(loadPosters,0)};
 
 const AMP_ART={
-  'Spider-Man (2002)':{page:'https://alternativemovieposters.com/amp/spider-man-by-carles-ganya/',artist:'Carles Ganya'},
+  'Spider-Man (2002)':{page:'https://alternativemovieposters.com/amp/spider-man-by-marko-manev/',artist:'Marko Manev'},
   'The Amazing Spider-Man (2012)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-by-carles-ganya/',artist:'Carles Ganya'},
-  'Captain America: The First Avenger':{page:'https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-carles-ganya/',artist:'Carles Ganya'},
-  'Iron Man':{page:'https://alternativemovieposters.com/amp/iron-man-by-ben-foxall/',artist:'Ben Foxall'},
+  'Captain America: The First Avenger':{page:'https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-shokxonestudios/',artist:'ShokXoneStudios'},
+  'Iron Man':{page:'https://alternativemovieposters.com/amp/iron-man-by-gabz/',artist:'Gabz'},
   'Iron Man 2':{page:'https://alternativemovieposters.com/amp/iron-man-2-by-ben-foxall/',artist:'Ben Foxall'},
   'The Incredible Hulk':{page:'https://alternativemovieposters.com/amp/the-incredible-hulk-by-carles-ganya/',artist:'Carles Ganya'},
-  'Thor':{page:'https://alternativemovieposters.com/amp/thor-by-olly-moss/',artist:'Olly Moss'},
-  'The Avengers':{page:'https://alternativemovieposters.com/amp/the-avengers-by-matt-taylor/',artist:'Matt Taylor'},
-  'Iron Man 3':{page:'https://alternativemovieposters.com/amp/iron-man-3-by-doaly/',artist:'Doaly'},
-  'Captain America: The Winter Soldier':{page:'https://alternativemovieposters.com/amp/captain-america-the-winter-soldier-by-kwasi-andrew-amankwah/',artist:'Kwasi Andrew Amankwah'},
-  'Guardians of the Galaxy Vol. 2':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-vol-2-by-ise-ananphada/',artist:'Ise Ananphada'},
+  'Thor':{page:'https://alternativemovieposters.com/amp/thor-by-marko-manev/',artist:'Marko Manev'},
+  'The Avengers':{page:'https://alternativemovieposters.com/amp/the-avengers-by-marko-manev/',artist:'Marko Manev'},
+  'Iron Man 3':{page:'https://alternativemovieposters.com/amp/iron-man-3-by-paul-shipper/',artist:'Paul Shipper'},
+  'Captain America: The Winter Soldier':{page:'https://alternativemovieposters.com/amp/captain-america-the-winter-soldier-by-doaly/',artist:'Doaly'},
+  'Guardians of the Galaxy':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-by-gabz/',artist:'Gabz'},
+  'Guardians of the Galaxy Vol. 2':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-vol-2-by-matt-ferguson/',artist:'Matt Ferguson'},
   'The Amazing Spider-Man 2 (2014)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-2-by-simon-delart/',artist:'Simon Delart'},
-  'Captain America: Civil War':{page:'https://alternativemovieposters.com/amp/captain-america-civil-war-by-lazare-gvimradze/',artist:'Lazare Gvimradze'},
-  'Doctor Strange':{page:'https://alternativemovieposters.com/amp/doctor-strange-by-dean-falsify-cook/',artist:'Dean Falsify Cook'}
+  'Captain America: Civil War':{page:'https://alternativemovieposters.com/amp/captain-america-civil-war-by-tom-walker/',artist:'Tom Walker'},
+  'Doctor Strange':{page:'https://alternativemovieposters.com/amp/doctor-strange-by-dean-falsify-cook/',artist:'Dean Falsify Cook'},
+  'Thor: Ragnarok':{page:'https://alternativemovieposters.com/amp/thor-ragnarok-by-dan-mumford/',artist:'Dan Mumford'},
+  'Avengers: Infinity War':{page:'https://alternativemovieposters.com/amp/avengers-infinity-war-by-matt-ferguson/',artist:'Matt Ferguson'},
+  'WandaVision':{page:'https://alternativemovieposters.com/amp/wandavision-by-matt-ferguson/',artist:'Matt Ferguson'}
 };
 async function ampPreview(a){
   const k='amp-og:'+a.page;let u=localStorage.getItem(k);if(u)return u;
@@ -66,7 +70,7 @@ async function loadPosters(){
     const base=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
     const a=AMP_ART[base]; let u=a?await ampPreview(a):''; if(!u)u=await wikiPoster(raw); if(!u)continue;
     const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt=base+' poster';img.src=u;
-    if(a){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — alternative poster by '+a.artist+' on AMP';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP · '+a.artist;link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
+    if(a){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — Alternative Movie Posters';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP';link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
   }
 }
 function exportProgress(){const blob=new Blob([JSON.stringify({app:'Marvel Marathon',version:1,exported:new Date().toISOString(),state:st},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='marvel-marathon-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
