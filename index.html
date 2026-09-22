@@ -33,11 +33,11 @@ $('m1').onclick=()=>{st.mode=1;save();render()};$('m2').onclick=()=>{st.mode=2;s
 const oldRender=render;render=function(){oldRender();setTimeout(loadPosters,0)};
 
 const AMP_ART={
-  'Spider-Man 2 (2004)':{page:'https://alternativemovieposters.com/amp/spider-man-2-by-ben-terdik/',artist:'Ben Terdik'},
+  'Spider-Man 2 (2004)':{page:'https://alternativemovieposters.com/amp/spider-man-2-by-ben-terdik/',img:'https://alternativemovieposters.com/wp-content/uploads/2022/12/Ben-Terdik_SpiderMan2.jpg'},
   'Thor: The Dark World':{page:'https://alternativemovieposters.com/amp/thor-the-dark-world-by-ken-taylor/',artist:'Ken Taylor'},
-  'Daredevil S1':{page:'https://alternativemovieposters.com/amp/daredevil-by-marko-manev/',artist:'Marko Manev'},
-  'Daredevil S2':{page:'https://alternativemovieposters.com/amp/daredevil-punisher-art-by-nikita-kaun/',artist:'Nikita Kaun'},
-  'Daredevil S3':{page:'https://alternativemovieposters.com/amp/daredevil-by-greg-ruth/',artist:'Greg Ruth'},
+  'Daredevil S1':{page:'https://alternativemovieposters.com/amp/daredevil-by-marko-manev/',safeFallback:true},
+  'Daredevil S2':{page:'https://alternativemovieposters.com/amp/daredevil-punisher-art-by-nikita-kaun/',safeFallback:true},
+  'Daredevil S3':{page:'https://alternativemovieposters.com/amp/daredevil-by-greg-ruth/',safeFallback:true},
   'Spider-Man (2002)':{page:'https://alternativemovieposters.com/amp/spider-man-by-marko-manev/',artist:'Marko Manev'},
   'The Amazing Spider-Man (2012)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-by-carles-ganya/',artist:'Carles Ganya'},
   'Captain America: The First Avenger':{page:'https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-shokxonestudios/',artist:'ShokXoneStudios'},
@@ -48,7 +48,7 @@ const AMP_ART={
   'The Avengers':{page:'https://alternativemovieposters.com/amp/the-avengers-by-marko-manev/',artist:'Marko Manev'},
   'Iron Man 3':{page:'https://alternativemovieposters.com/amp/iron-man-3-by-paul-shipper/',artist:'Paul Shipper'},
   'Captain America: The Winter Soldier':{page:'https://alternativemovieposters.com/amp/captain-america-the-winter-soldier-by-doaly/',artist:'Doaly'},
-  'Guardians of the Galaxy':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-by-gabz/',artist:'Gabz'},
+  'Guardians of the Galaxy':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-by-gabz/',safeFallback:true},
   'Guardians of the Galaxy Vol. 2':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-vol-2-by-matt-ferguson/',artist:'Matt Ferguson'},
   'The Amazing Spider-Man 2 (2014)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-2-by-simon-delart/',artist:'Simon Delart'},
   'Captain America: Civil War':{page:'https://alternativemovieposters.com/amp/captain-america-civil-war-by-tom-walker/',artist:'Tom Walker'},
@@ -73,9 +73,9 @@ async function loadPosters(){
   for(const node of nodes){
     const raw=decodeURIComponent(node.dataset.poster||'');
     const base=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
-    const a=AMP_ART[base]; let u=a?await ampPreview(a):''; if(!u&&!a)u=await wikiPoster(raw); if(!u&&a){node.textContent='AMP';node.classList.add('amp-missing');node.onclick=()=>window.open(a.page,'_blank','noopener');node.title=base+' — open on Alternative Movie Posters';continue} if(!u)continue;
-    const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt=base+' poster';img.src=u;
-    if(a){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — Alternative Movie Posters';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP';link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
+    const a=AMP_ART[base]; let u=''; let curated=false; if(a&&a.img){u=a.img;curated=true}else if(a&&!a.safeFallback){u=await ampPreview(a);curated=!!u} if(!u)u=await wikiPoster(raw); if(!u){node.textContent='🎬';continue;}
+    const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt=base+' poster';img.src=u;img.onerror=async()=>{img.onerror=null;const f=await wikiPoster(raw);if(f&&f!==img.src)img.src=f;else{const ph=document.createElement('span');ph.className='poster-fallback';ph.textContent='🎬';(img.closest('.poster-link')||img).replaceWith(ph)}};
+    if(a&&curated){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — Alternative Movie Posters';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP';link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
   }
 }
 function exportProgress(){const blob=new Blob([JSON.stringify({app:'Marvel Marathon',version:1,exported:new Date().toISOString(),state:st},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='marvel-marathon-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
