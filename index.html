@@ -6,7 +6,7 @@ main{max-width:820px;margin:auto;padding:18px}.pace-wrap{background:rgba(95,95,9
 .pace-btn.active{background:rgba(68,68,68,.78);box-shadow:inset 0 0 0 1px rgba(140,160,190,.42)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.stat{background:rgba(70,70,70,.58);border-radius:22px;padding:16px}
 .label,.phase-sub,.date{color:var(--muted)}.big{font-size:24px;margin-top:4px}.notice{margin-top:16px;background:rgba(4,13,27,.72);border-left:5px solid var(--accent);border-radius:0 18px 18px 0;padding:18px 20px}
-.phase{margin:28px 0}.phase-title{font-size:22px;font-weight:600}.phase-sub{margin:3px 0 12px}.poster-stack{display:flex;gap:6px;flex:0 0 auto;align-self:center}.poster-ref{position:relative;display:inline-flex;text-decoration:none;color:inherit}.poster-ref::after{content:"AMP";position:absolute;right:3px;bottom:3px;padding:2px 4px;border-radius:5px;background:rgba(0,0,0,.78);color:#ddd;font-size:8px;font-weight:800;letter-spacing:.4px;opacity:.82}.poster-ref:hover::after{color:#fff;opacity:1}.poster{width:64px;height:96px;object-fit:cover;border-radius:10px;background:#222;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.poster-fallback{width:64px;height:96px;border-radius:10px;background:linear-gradient(145deg,#26080d,#17171b);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.day-card{display:flex;gap:14px;background:rgba(24,24,24,.54);border:1px solid rgba(105,105,105,.28);border-radius:20px;padding:16px;min-height:108px;margin:10px 0}
+.phase{margin:28px 0}.phase-title{font-size:22px;font-weight:600}.phase-sub{margin:3px 0 12px}.poster-stack{display:flex;gap:6px;flex:0 0 auto;align-self:center}.poster{width:64px;height:96px;object-fit:cover;border-radius:10px;background:#222;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.poster-link{position:relative;display:block;width:64px;height:96px;flex:0 0 auto}.poster-link .poster{width:100%;height:100%}.poster-credit{position:absolute;left:4px;right:4px;bottom:4px;padding:2px 4px;border-radius:6px;background:rgba(0,0,0,.72);font-size:8px;line-height:1.15;color:#eee;text-align:center;opacity:.9}.poster-fallback{width:64px;height:96px;border-radius:10px;background:linear-gradient(145deg,#26080d,#17171b);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;box-shadow:0 7px 18px rgba(0,0,0,.32)}.day-card{display:flex;gap:14px;background:rgba(24,24,24,.54);border:1px solid rgba(105,105,105,.28);border-radius:20px;padding:16px;min-height:108px;margin:10px 0}
 .day-card.done{background:rgba(38,38,38,.62)}.day-pill{display:inline-block;border-radius:999px;padding:5px 13px;background:rgba(5,20,43,.86);font-size:14px;font-weight:600}.date{margin-left:10px}.title{display:block;font-size:20px;line-height:1.4;margin-top:12px}.plus{font-size:14px;color:var(--muted)}
 input[type=checkbox]{margin-top:7px;transform:scale(1.25)}.footer{display:flex;justify-content:space-between;align-items:center;margin:28px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.reset{border:0;background:rgba(70,70,70,.45);color:var(--text);border-radius:14px;padding:11px 14px}
 @media(max-width:520px){.stats{grid-template-columns:1fr}.title{font-size:18px}}
@@ -24,9 +24,7 @@ function baseId(raw){return raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,''
 function itemIds(raw){const b=baseId(raw),m=raw.match(/ — Episodes? (\d+)(?:–(\d+))?/);if(!m)return[b];const a=+m[1],z=+(m[2]||m[1]);return Array.from({length:z-a+1},(_,i)=>b+'-e'+(a+i))}
 function dayIds(items){return [...new Set(items.flatMap(itemIds))]}
 function artKey(raw){return raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim()}
-function ampSlug(raw){let t=artKey(raw).replace(/\s+S\d+$/,'').replace(/^The\s+/,'').trim().toLowerCase();const aliases={'the avengers':'avengers','avengers: age of ultron':'avengers-age-of-ultron','avengers: infinity war':'avengers-infinity-war','avengers: endgame':'avengers-endgame','captain america: the first avenger':'captain-america-the-first-avenger','captain america: the winter soldier':'captain-america-the-winter-soldier','captain america: civil war':'captain-america-civil-war','spider-man (2002)':'spider-man','spider-man 2 (2004)':'spider-man-2','spider-man 3 (2007)':'spider-man-3','the amazing spider-man (2012)':'the-amazing-spider-man','the amazing spider-man 2 (2014)':'the-amazing-spider-man-2','the incredible hulk':'the-incredible-hulk','the defenders':'the-defenders','the punisher':'the-punisher','the wolverine':'the-wolverine','the marvels':'the-marvels','the fantastic four: first steps':'the-fantastic-four-first-steps','what if…?':'what-if','werewolf by night':'werewolf-by-night'};if(aliases[artKey(raw).toLowerCase()])return aliases[artKey(raw).toLowerCase()];if(aliases[t])return aliases[t];return t.replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
-function ampUrl(raw){return 'https://alternativemovieposters.com/portfolio_tags/'+ampSlug(raw)+'/'}
-function posterNodes(items){const seen=new Set(),out=[];for(const raw of items){const k=artKey(raw);if(seen.has(k))continue;seen.add(k);out.push('<a class="poster-ref" href="'+ampUrl(raw)+'" target="_blank" rel="noopener" title="View '+k.replace(/"/g,'&quot;')+' artwork on Alternative Movie Posters"><span class="poster-fallback" data-poster="'+encodeURIComponent(raw)+'">🎬</span></a>')}return out.join('')}
+function posterNodes(items){const seen=new Set(),out=[];for(const raw of items){const k=artKey(raw);if(seen.has(k))continue;seen.add(k);out.push('<span class="poster-fallback" data-poster="'+encodeURIComponent(raw)+'">🎬</span>')}return out.join('')}
 function paint(){const done=new Set(st.done);document.querySelectorAll('.chk').forEach(x=>{const ids=JSON.parse(decodeURIComponent(x.dataset.ids));const on=ids.every(id=>done.has(id));x.checked=on;x.closest('.day-card').classList.toggle('done',on)});const cards=[...document.querySelectorAll('.chk')],completed=cards.filter(x=>x.checked).length;$('progress').textContent=completed+' / '+cards.length;$('bottom').textContent=completed+' of '+cards.length+' viewing days complete'}
 function bind(){document.querySelectorAll('.chk').forEach(x=>x.onchange=e=>{const ids=JSON.parse(decodeURIComponent(e.target.dataset.ids));const done=new Set(st.done);if(e.target.checked)ids.forEach(id=>done.add(id));else ids.forEach(id=>done.delete(id));st.done=[...done];save();paint()})}
 function render(){let m=st.mode,t=total(m),n=1,o='';$('start').textContent=dt(1,t);$('paceText').textContent=m===2?'2 movies/day · transition rule: 1 movie + at least 2 TV episodes · 3 episodes per TV-only day':'1 movie per movie-day · 3 episodes per TV-day';$('m1').classList.toggle('active',m===1);$('m2').classList.toggle('active',m===2);
@@ -34,18 +32,41 @@ for(const p of DATA[String(m)]){o+='<section class="phase"><div class="phase-tit
 $('m1').onclick=()=>{st.mode=1;save();render()};$('m2').onclick=()=>{st.mode=2;save();render()};$('reset').onclick=()=>{if(confirm('Reset all progress?')){st.done=[];save();paint()}};
 const oldRender=render;render=function(){oldRender();setTimeout(loadPosters,0)};
 
+const AMP_ART={
+  'Spider-Man (2002)':{page:'https://alternativemovieposters.com/amp/spider-man-by-carles-ganya/',artist:'Carles Ganya'},
+  'The Amazing Spider-Man (2012)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-by-carles-ganya/',artist:'Carles Ganya'},
+  'Captain America: The First Avenger':{page:'https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-carles-ganya/',artist:'Carles Ganya'},
+  'Iron Man':{page:'https://alternativemovieposters.com/amp/iron-man-by-ben-foxall/',artist:'Ben Foxall'},
+  'Iron Man 2':{page:'https://alternativemovieposters.com/amp/iron-man-2-by-ben-foxall/',artist:'Ben Foxall'},
+  'The Incredible Hulk':{page:'https://alternativemovieposters.com/amp/the-incredible-hulk-by-carles-ganya/',artist:'Carles Ganya'},
+  'Thor':{page:'https://alternativemovieposters.com/amp/thor-by-olly-moss/',artist:'Olly Moss'},
+  'The Avengers':{page:'https://alternativemovieposters.com/amp/the-avengers-by-matt-taylor/',artist:'Matt Taylor'},
+  'Iron Man 3':{page:'https://alternativemovieposters.com/amp/iron-man-3-by-doaly/',artist:'Doaly'},
+  'Captain America: The Winter Soldier':{page:'https://alternativemovieposters.com/amp/captain-america-the-winter-soldier-by-kwasi-andrew-amankwah/',artist:'Kwasi Andrew Amankwah'},
+  'Guardians of the Galaxy Vol. 2':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-vol-2-by-ise-ananphada/',artist:'Ise Ananphada'},
+  'The Amazing Spider-Man 2 (2014)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-2-by-simon-delart/',artist:'Simon Delart'},
+  'Captain America: Civil War':{page:'https://alternativemovieposters.com/amp/captain-america-civil-war-by-lazare-gvimradze/',artist:'Lazare Gvimradze'},
+  'Doctor Strange':{page:'https://alternativemovieposters.com/amp/doctor-strange-by-dean-falsify-cook/',artist:'Dean Falsify Cook'}
+};
+async function ampPreview(a){
+  const k='amp-og:'+a.page;let u=localStorage.getItem(k);if(u)return u;
+  try{const r=await fetch('https://api.microlink.io/?url='+encodeURIComponent(a.page));if(!r.ok)return'';const j=await r.json();u=j&&j.data&&j.data.image&&j.data.image.url||'';if(u)localStorage.setItem(k,u);return u}catch(e){return''}
+}
+async function wikiPoster(raw){
+  let title=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
+  const aliases={'The Avengers':'The Avengers (2012 film)','The Incredible Hulk':'The Incredible Hulk (film)','The Wolverine':'The Wolverine (film)','Logan':'Logan (film)','X-Men':'X-Men (film)','Eternals':'Eternals (film)','Hawkeye':'Hawkeye (2021 TV series)','Echo':'Echo (miniseries)','Ironheart':'Ironheart (miniseries)','Moon Knight':'Moon Knight (miniseries)','Ms. Marvel':'Ms. Marvel (miniseries)','Wonder Man':'Wonder Man (miniseries)','The Defenders':'The Defenders (miniseries)','Daredevil':'Daredevil (TV series)','Jessica Jones':'Jessica Jones (TV series)','Luke Cage':'Luke Cage (TV series)','Iron Fist':'Iron Fist (TV series)','The Punisher':'The Punisher (TV series)','VisionQuest':'VisionQuest (TV series)'};
+  for(const k in aliases)if(title===k||title.startsWith(k+' S'))title=aliases[k];
+  const ck='poster:'+title;let u=localStorage.getItem(ck);if(u)return u;
+  try{let r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title));if(r.ok){let j=await r.json();u=j.thumbnail&&j.thumbnail.source||''}if(!u){r=await fetch('https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1&prop=pageimages&pithumbsize=400&format=json&origin=*');if(r.ok){let j=await r.json(),pages=j.query&&j.query.pages;let q=pages&&Object.values(pages)[0];u=q&&q.thumbnail&&q.thumbnail.source||''}}if(u)localStorage.setItem(ck,u);return u}catch(e){return''}
+}
 async function loadPosters(){
   const nodes=[...document.querySelectorAll('[data-poster]')];
   for(const node of nodes){
-    let raw=decodeURIComponent(node.dataset.poster||'');
-    let title=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
-    const aliases={'The Avengers':'The Avengers (2012 film)','The Incredible Hulk':'The Incredible Hulk (film)','The Wolverine':'The Wolverine (film)','Logan':'Logan (film)','X-Men':'X-Men (film)','Eternals':'Eternals (film)','Hawkeye':'Hawkeye (2021 TV series)','Echo':'Echo (miniseries)','Ironheart':'Ironheart (miniseries)','Moon Knight':'Moon Knight (miniseries)','Ms. Marvel':'Ms. Marvel (miniseries)','Wonder Man':'Wonder Man (miniseries)','The Defenders':'The Defenders (miniseries)','Daredevil':'Daredevil (TV series)','Jessica Jones':'Jessica Jones (TV series)','Luke Cage':'Luke Cage (TV series)','Iron Fist':'Iron Fist (TV series)','The Punisher':'The Punisher (TV series)','VisionQuest':'VisionQuest (TV series)'};
-    for(const k in aliases) if(title===k||title.startsWith(k+' S')) title=aliases[k];
-    try{
-      const cacheKey='poster:'+title; let u=localStorage.getItem(cacheKey);
-      if(!u){const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title)); if(!r.ok) continue; const j=await r.json(); u=(j.thumbnail&&j.thumbnail.source)||''; if(u)localStorage.setItem(cacheKey,u)}
-      if(u){const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt='';img.src=u;node.replaceWith(img)}
-    }catch(e){}
+    const raw=decodeURIComponent(node.dataset.poster||'');
+    const base=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
+    const a=AMP_ART[base]; let u=a?await ampPreview(a):''; if(!u)u=await wikiPoster(raw); if(!u)continue;
+    const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt=base+' poster';img.src=u;
+    if(a){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — alternative poster by '+a.artist+' on AMP';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP · '+a.artist;link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
   }
 }
 function exportProgress(){const blob=new Blob([JSON.stringify({app:'Marvel Marathon',version:1,exported:new Date().toISOString(),state:st},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='marvel-marathon-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
