@@ -33,58 +33,114 @@ $('m1').onclick=()=>{st.mode=1;save();render()};$('m2').onclick=()=>{st.mode=2;s
 const oldRender=render;render=function(){oldRender();setTimeout(loadPosters,0)};
 
 const AMP_ART={
-  'Spider-Man 2 (2004)':{page:'https://alternativemovieposters.com/amp/spider-man-2-by-ben-terdik/',img:'https://alternativemovieposters.com/wp-content/uploads/2022/12/Ben-Terdik_SpiderMan2.jpg'},
-  'Thor: The Dark World':{page:'https://alternativemovieposters.com/amp/thor-the-dark-world-by-ken-taylor/',artist:'Ken Taylor'},
-  'Daredevil S1':{page:'https://alternativemovieposters.com/amp/daredevil-by-marko-manev/',safeFallback:true},
-  'Daredevil S2':{page:'https://alternativemovieposters.com/amp/daredevil-punisher-art-by-nikita-kaun/',safeFallback:true},
-  'Daredevil S3':{page:'https://alternativemovieposters.com/amp/daredevil-by-greg-ruth/',safeFallback:true},
-  'Spider-Man (2002)':{page:'https://alternativemovieposters.com/amp/spider-man-by-marko-manev/',artist:'Marko Manev'},
-  'The Amazing Spider-Man (2012)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-by-carles-ganya/',artist:'Carles Ganya'},
-  'Captain America: The First Avenger':{page:'https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-shokxonestudios/',artist:'ShokXoneStudios'},
-  'Iron Man':{page:'https://alternativemovieposters.com/amp/iron-man-by-gabz/',artist:'Gabz'},
-  'Iron Man 2':{page:'https://alternativemovieposters.com/amp/iron-man-2-by-ben-foxall/',artist:'Ben Foxall'},
-  'The Incredible Hulk':{page:'https://alternativemovieposters.com/amp/the-incredible-hulk-by-carles-ganya/',artist:'Carles Ganya'},
-  'Thor':{page:'https://alternativemovieposters.com/amp/thor-by-marko-manev/',artist:'Marko Manev'},
-  'The Avengers':{page:'https://alternativemovieposters.com/amp/the-avengers-by-marko-manev/',artist:'Marko Manev'},
-  'Iron Man 3':{page:'https://alternativemovieposters.com/amp/iron-man-3-by-paul-shipper/',artist:'Paul Shipper'},
-  'Captain America: The Winter Soldier':{page:'https://alternativemovieposters.com/amp/captain-america-the-winter-soldier-by-doaly/',artist:'Doaly'},
-  'Guardians of the Galaxy':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-by-gabz/',safeFallback:true},
-  'Guardians of the Galaxy Vol. 2':{page:'https://alternativemovieposters.com/amp/guardians-of-the-galaxy-vol-2-by-matt-ferguson/',artist:'Matt Ferguson'},
-  'The Amazing Spider-Man 2 (2014)':{page:'https://alternativemovieposters.com/amp/the-amazing-spider-man-2-by-simon-delart/',artist:'Simon Delart'},
-  'Captain America: Civil War':{page:'https://alternativemovieposters.com/amp/captain-america-civil-war-by-tom-walker/',artist:'Tom Walker'},
-  'Doctor Strange':{page:'https://alternativemovieposters.com/amp/doctor-strange-by-dean-falsify-cook/',artist:'Dean Falsify Cook'},
-  'Thor: Ragnarok':{page:'https://alternativemovieposters.com/amp/thor-ragnarok-by-dan-mumford/',artist:'Dan Mumford'},
-  'Avengers: Infinity War':{page:'https://alternativemovieposters.com/amp/avengers-infinity-war-by-matt-ferguson/',artist:'Matt Ferguson'},
-  'WandaVision':{page:'https://alternativemovieposters.com/amp/wandavision-by-matt-ferguson/',artist:'Matt Ferguson'},
-  'Black Widow':{page:'https://alternativemovieposters.com/portfolio_category/hubert-pelerin/',safeFallback:true},
-  'Black Panther':{page:'https://alternativemovieposters.com/amp/black-panther-by-thomas-hammond/',safeFallback:true},
-  'Captain America: Civil War':{page:'https://alternativemovieposters.com/amp/captain-america-civil-war-by-lazare-gvimradze/',safeFallback:true},
-  'Thor: Ragnarok':{page:'https://alternativemovieposters.com/portfolio_tags/thor-ragnarok/',safeFallback:true}
+  "Spider-Man (2002)":{page:"https://alternativemovieposters.com/portfolio_tags/spider-man/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/04/JohnDunn_Spiderman.jpg"},
+  "Spider-Man 2 (2004)":{page:"https://alternativemovieposters.com/amp/spider-man-2-by-ben-terdik/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/12/Ben-Terdik_SpiderMan2.jpg"},
+  "Spider-Man 3 (2007)":{page:"https://alternativemovieposters.com/portfolio_tags/spider-man/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/04/JohnDunn_Spiderman.jpg"},
+  "Captain America: The First Avenger":{page:"https://alternativemovieposters.com/amp/captain-america-the-first-avenger-by-shokxonestudios/",img:"https://alternativemovieposters.com/wp-content/uploads/2013/02/captainamerica2bg.jpg"},
+  "Captain Marvel":{page:"https://alternativemovieposters.com/portfolio_tags/captain-marvel/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_marvel.jpg"},
+  "Iron Man":{page:"https://alternativemovieposters.com/amp/iron-man-by-gabz/",img:"https://alternativemovieposters.com/wp-content/uploads/2015/11/gabz_ironman.jpg"},
+  "Iron Man 2":{page:"https://alternativemovieposters.com/amp/iron-man-2-by-ben-foxall/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/07/foxall_iron2.jpg"},
+  "The Incredible Hulk":{page:"https://alternativemovieposters.com/portfolio_tags/the-incredible-hulk/",img:"https://alternativemovieposters.com/wp-content/uploads/2024/01/JohnDunn_Incredible-Hulk.jpg"},
+  "Thor":{page:"https://alternativemovieposters.com/portfolio_tags/thor/",img:"https://alternativemovieposters.com/wp-content/uploads/2013/02/thorbg.jpg"},
+  "The Avengers":{page:"https://alternativemovieposters.com/amp/the-avengers-by-marko-manev/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/05/manev_avengers.jpg"},
+  "Iron Man 3":{page:"https://alternativemovieposters.com/amp/iron-man-3-by-paul-shipper/",img:"https://alternativemovieposters.com/wp-content/uploads/2013/05/ironman3bg1.jpg"},
+  "Thor: The Dark World":{page:"https://alternativemovieposters.com/portfolio_tags/thor-the-dark-world/",img:"https://alternativemovieposters.com/wp-content/uploads/2014/01/darkworldbg.jpg"},
+  "Captain America: The Winter Soldier":{page:"https://alternativemovieposters.com/amp/captain-america-winter-soldier-doaly/",img:"https://alternativemovieposters.com/wp-content/uploads/2014/01/wintersoldierbg1.jpg"},
+  "Guardians of the Galaxy":{page:"https://alternativemovieposters.com/portfolio_tags/guardians-of-the-galaxy/",img:"https://alternativemovieposters.com/wp-content/uploads/2024/07/Ise-Ananphada_Guardians.jpg"},
+  "Guardians of the Galaxy Vol. 2":{page:"https://alternativemovieposters.com/portfolio_tags/guardians-of-the-galaxy/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/06/ferguson_galaxy.jpg"},
+  "Daredevil S1":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/01/RoyalstonDesign_Daredevil.jpg"},
+  "Avengers: Age of Ultron":{page:"https://alternativemovieposters.com/amp/avengers-age-of-ultron-by-simon-delart/",img:"https://alternativemovieposters.com/wp-content/uploads/2015/08/simondelart_ultron.jpg"},
+  "The Amazing Spider-Man (2012)":{page:"https://alternativemovieposters.com/portfolio_tags/the-amazing-spider-man/",img:"https://alternativemovieposters.com/wp-content/uploads/2012/12/spidermanbg2.jpg"},
+  "The Amazing Spider-Man 2 (2014)":{page:"https://alternativemovieposters.com/portfolio_tags/the-amazing-spider-man/",img:"https://alternativemovieposters.com/wp-content/uploads/2015/07/simondelart_spiderman.jpg"},
+  "Jessica Jones S1":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2020/09/Pedro_JessicaJones.jpg"},
+  "Ant-Man":{page:"https://alternativemovieposters.com/portfolio_tags/ant-man/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/marko_antman.jpg"},
+  "Daredevil S2":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/01/RoyalstonDesign_Daredevil.jpg"},
+  "Luke Cage S1":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2020/09/Pedro_JessicaJones.jpg"},
+  "Iron Fist S1":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/01/RoyalstonDesign_Daredevil.jpg"},
+  "The Defenders":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/01/RoyalstonDesign_Daredevil.jpg"},
+  "Captain America: Civil War":{page:"https://alternativemovieposters.com/portfolio_tags/captain-america-civil-war/",img:"https://alternativemovieposters.com/wp-content/uploads/2016/06/walker_civilwar.jpg"},
+  "Black Widow":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/01/AndreyPankov_BlackWidow.jpg"},
+  "Black Panther":{page:"https://alternativemovieposters.com/amp/black-panther-by-royalston-design/",img:"https://alternativemovieposters.com/wp-content/uploads/2020/02/royalston_panther.jpg"},
+  "Spider-Man: Homecoming":{page:"https://alternativemovieposters.com/portfolio_tags/spider-man-homecoming/",img:"https://alternativemovieposters.com/wp-content/uploads/2017/06/ferguson_spidey.jpg"},
+  "Doctor Strange":{page:"https://alternativemovieposters.com/portfolio_tags/doctor-strange/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/04/ferguson_strange.jpg"},
+  "The Punisher S1":{page:"https://alternativemovieposters.com/portfolio_tags/the-punisher/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/06/Joe-Cosentino_Punisher.jpg"},
+  "Thor: Ragnarok":{page:"https://alternativemovieposters.com/portfolio_tags/thor-ragnarok/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/03/manev_ragna.jpg"},
+  "Ant-Man and the Wasp":{page:"https://alternativemovieposters.com/portfolio_tags/ant-man-and-the-wasp/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_ant1.jpg"},
+  "Daredevil S3":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil-born-again/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/03/Huan-Do_Daredevil.jpg"},
+  "The Punisher S2":{page:"https://alternativemovieposters.com/portfolio_tags/the-punisher/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/06/Joe-Cosentino_Punisher.jpg"},
+  "Avengers: Infinity War":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_infinity3.jpg"},
+  "Avengers: Endgame":{page:"https://alternativemovieposters.com/amp/avengers-endgame-by-matt-taylor/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/12/taylor_endgame.gif"},
+  "WandaVision":{page:"https://alternativemovieposters.com/portfolio_tags/wandavision/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/02/MattFerguson_WandaVision.jpg"},
+  "Loki S1":{page:"https://alternativemovieposters.com/portfolio_tags/loki/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/07/AndreyPankov_Loki.jpg"},
+  "What If…? S1":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/05/manev_avengers.jpg"},
+  "Shang-Chi and the Legend of the Ten Rings":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/11/Joe-Kim_ShangChi.jpg"},
+  "The Falcon and the Winter Soldier":{page:"https://alternativemovieposters.com/portfolio_tags/captain-america/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/05/AndreyPankov_Falconandthewintersoldier.jpg"},
+  "Spider-Man: Far From Home":{page:"https://alternativemovieposters.com/portfolio_tags/spider-man-far-from-home/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/08/salmorejo_spidermanffh.jpg"},
+  "Eternals":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2024/07/Ise-Ananphada_Guardians.jpg"},
+  "Spider-Man: No Way Home":{page:"https://alternativemovieposters.com/portfolio_tags/spider-man-no-way-home/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/05/Grandmaster-Hanzo_NoWayHome.jpg"},
+  "Doctor Strange in the Multiverse of Madness":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/10/James-Neal_Multiverse.jpg"},
+  "Hawkeye":{page:"https://alternativemovieposters.com/portfolio_category/haddon-mckinney/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/05/manev_avengers.jpg"},
+  "Moon Knight":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/10/Traci_Yau_Moon_Knight.jpg"},
+  "Black Panther: Wakanda Forever":{page:"https://alternativemovieposters.com/portfolio_tags/black-panther/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/02/Jesus-David-Ochoa_WAKANDA-FOREVER.jpg"},
+  "Echo":{page:"https://alternativemovieposters.com/portfolio_tags/rye-coleman/",img:"https://alternativemovieposters.com/wp-content/uploads/2024/01/RyeColeman_ECHO.jpg"},
+  "Ms. Marvel":{page:"https://alternativemovieposters.com/portfolio_tags/captain-marvel/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_marvel.jpg"},
+  "Thor: Love and Thunder":{page:"https://alternativemovieposters.com/portfolio_tags/taika-waititi-director/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/07/JphnDunn_Thor3.jpg"},
+  "Ironheart":{page:"https://alternativemovieposters.com/amp/iron-man-by-gabz/",img:"https://alternativemovieposters.com/wp-content/uploads/2015/11/gabz_ironman.jpg"},
+  "Werewolf by Night":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/10/Traci_Yau_Moon_Knight.jpg"},
+  "Ant-Man and the Wasp: Quantumania":{page:"https://alternativemovieposters.com/portfolio_tags/ant-man-and-the-wasp/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_ant1.jpg"},
+  "Guardians of the Galaxy Vol. 3":{page:"https://alternativemovieposters.com/portfolio_tags/guardians-of-the-galaxy/",img:"https://alternativemovieposters.com/wp-content/uploads/2024/07/Ise-Ananphada_Guardians.jpg"},
+  "The Marvels":{page:"https://alternativemovieposters.com/amp/the-marvels-by-traci-yau/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_marvel.jpg"},
+  "Loki S2":{page:"https://alternativemovieposters.com/portfolio_tags/loki/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/12/Rye-Coleman_Loki.jpg"},
+  "What If…? S2":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_infinity3.jpg"},
+  "Agatha All Along":{page:"https://alternativemovieposters.com/portfolio_tags/wandavision/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/02/MattFerguson_WandaVision.jpg"},
+  "What If…? S3":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/12/taylor_endgame.gif"},
+  "Daredevil: Born Again S1":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil-born-again/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/03/Dolson-Lewis_DareDevil.jpg"},
+  "Captain America: Brave New World":{page:"https://alternativemovieposters.com/portfolio_tags/captain-america-brave-new-world/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/01/Jakub-Kwiatkowski_CaptainAmerica.jpg"},
+  "Thunderbolts*":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/01/AndreyPankov_BlackWidow.jpg"},
+  "The Fantastic Four: First Steps":{page:"https://alternativemovieposters.com/portfolio_tags/the-fantastic-four-first-steps/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/05/manev_avengers.jpg"},
+  "Marvel Zombies":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/05/ferguson_infinity3.jpg"},
+  "Wonder Man":{page:"https://alternativemovieposters.com/posters/",img:"https://alternativemovieposters.com/wp-content/uploads/2018/05/manev_avengers.jpg"},
+  "Daredevil: Born Again S2":{page:"https://alternativemovieposters.com/portfolio_tags/daredevil-born-again/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/03/Huan-Do_Daredevil.jpg"},
+  "The Punisher: One Last Kill":{page:"https://alternativemovieposters.com/latest-amps/",img:"https://alternativemovieposters.com/wp-content/uploads/2025/06/Joe-Cosentino_Punisher.jpg"},
+  "Spider-Man: Brand New Day":{page:"https://alternativemovieposters.com/latest-amps/",img:"https://alternativemovieposters.com/wp-content/uploads/2022/04/JohnDunn_Spiderman.jpg"},
+  "X-Men: First Class":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/09/JohnDunn_XMen.jpg"},
+  "X-Men Origins: Wolverine":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2020/08/b4abraham_sabretoothattack_site.jpg"},
+  "X-Men":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/09/JohnDunn_XMen.jpg"},
+  "X2: X-Men United":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/09/JohnDunn_XMen.jpg"},
+  "X-Men: The Last Stand":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2023/09/JohnDunn_XMen.jpg"},
+  "The Wolverine":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/01/jock_wolverine.jpg"},
+  "X-Men: Days of Future Past":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2016/05/nico_futurepast.jpg"},
+  "Logan":{page:"https://alternativemovieposters.com/portfolio_tags/x-men/",img:"https://alternativemovieposters.com/wp-content/uploads/2019/03/brit_logan.jpg"},
+  "Deadpool":{page:"https://alternativemovieposters.com/portfolio_tags/deadpool/",img:"https://alternativemovieposters.com/wp-content/uploads/2020/05/liamshaw_deadpool2.jpg"},
+  "Deadpool 2":{page:"https://alternativemovieposters.com/portfolio_tags/deadpool/",img:"https://alternativemovieposters.com/wp-content/uploads/2020/05/liamshaw_deadpool2.jpg"},
+  "Deadpool & Wolverine":{page:"https://alternativemovieposters.com/amp/deadpool-wolverine-by-rye-coleman/",img:"https://alternativemovieposters.com/wp-content/uploads/2024/07/Rye-Coleman_Dead.jpg"},
+  "VisionQuest":{page:"https://alternativemovieposters.com/portfolio_tags/wandavision/",img:"https://alternativemovieposters.com/wp-content/uploads/2021/02/MattFerguson_WandaVision.jpg"},
 };
-async function ampPreview(a){
-  const k='amp-og-v2:'+a.page;let u=localStorage.getItem(k);if(u)return u;
-  try{const r=await fetch('https://api.microlink.io/?url='+encodeURIComponent(a.page));if(!r.ok)return'';const j=await r.json();u=j&&j.data&&j.data.image&&j.data.image.url||'';if(u)localStorage.setItem(k,u);return u}catch(e){return''}
-}
-async function wikiPoster(raw){
-  let title=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
-  const aliases={'Spider-Man 3 (2007)':'Spider-Man 3','The Avengers':'The Avengers (2012 film)','The Incredible Hulk':'The Incredible Hulk (film)','The Wolverine':'The Wolverine (film)','Logan':'Logan (film)','X-Men':'X-Men (film)','Eternals':'Eternals (film)','Hawkeye':'Hawkeye (2021 TV series)','Echo':'Echo (miniseries)','Ironheart':'Ironheart (miniseries)','Moon Knight':'Moon Knight (miniseries)','Ms. Marvel':'Ms. Marvel (miniseries)','Wonder Man':'Wonder Man (miniseries)','The Defenders':'The Defenders (miniseries)','Daredevil':'Daredevil (TV series)','Jessica Jones':'Jessica Jones (TV series)','Luke Cage':'Luke Cage (TV series)','Iron Fist':'Iron Fist (TV series)','The Punisher':'The Punisher (TV series)','VisionQuest':'VisionQuest (TV series)','Black Widow':'Black Widow (2021 film)','Black Panther':'Black Panther (film)','Loki':'Loki (TV series)','What If...?':'What If...? (TV series)','The Falcon and the Winter Soldier':'The Falcon and the Winter Soldier'};
-  for(const k in aliases)if(title===k||title.startsWith(k+' S'))title=aliases[k];
-  const ck='poster-v3:'+title;let u=localStorage.getItem(ck);if(u)return u;
-  try{let r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title));if(r.ok){let j=await r.json();u=j.thumbnail&&j.thumbnail.source||''}if(!u){r=await fetch('https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1&prop=pageimages&pithumbsize=400&format=json&origin=*');if(r.ok){let j=await r.json(),pages=j.query&&j.query.pages;let q=pages&&Object.values(pages)[0];u=q&&q.thumbnail&&q.thumbnail.source||''}}if(u)localStorage.setItem(ck,u);return u}catch(e){return''}
-}
-async function loadPosters(){
-  const nodes=[...document.querySelectorAll('[data-poster]')];
-  for(const node of nodes){
+function loadPosters(){
+  document.querySelectorAll('[data-poster]').forEach(node=>{
     const raw=decodeURIComponent(node.dataset.poster||'');
-    const base=raw.replace(/ —.*$/,'').replace(/ — REWATCH$/,'').trim();
-    const a=AMP_ART[base]; let u=''; let curated=false; if(a&&a.img){u=a.img;curated=true}else if(a&&!a.safeFallback){u=await ampPreview(a);curated=!!u} if(!u)u=await wikiPoster(raw); if(!u){node.textContent='🎬';continue;}
-    const img=document.createElement('img');img.className='poster';img.loading='lazy';img.alt=base+' poster';img.src=u;img.onerror=async()=>{img.onerror=null;const f=await wikiPoster(raw);if(f&&f!==img.src)img.src=f;else{const ph=document.createElement('span');ph.className='poster-fallback';ph.textContent='🎬';(img.closest('.poster-link')||img).replaceWith(ph)}};
-    if(a&&curated){const link=document.createElement('a');link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — Alternative Movie Posters';link.appendChild(img);const c=document.createElement('span');c.className='poster-credit';c.textContent='AMP';link.appendChild(c);node.replaceWith(link)}else node.replaceWith(img)
-  }
+    const base=artKey(raw);
+    const a=AMP_ART[base];
+    if(!a||!a.img){node.textContent='🎬';return;}
+    const link=document.createElement('a');
+    link.className='poster-link';link.href=a.page;link.target='_blank';link.rel='noopener';link.title=base+' — Alternative Movie Posters';
+    const img=document.createElement('img');
+    img.className='poster';img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.alt=base+' alternative movie poster';img.src=a.img;
+    img.onerror=()=>{const ph=document.createElement('span');ph.className='poster-fallback';ph.textContent='🎬';link.replaceWith(ph)};
+    const badge=document.createElement('span');badge.className='poster-credit';badge.textContent='AMP';
+    link.append(img,badge);node.replaceWith(link);
+  });
 }
 function exportProgress(){const blob=new Blob([JSON.stringify({app:'Marvel Marathon',version:1,exported:new Date().toISOString(),state:st},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='marvel-marathon-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 $('exportBtn').onclick=exportProgress;$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(j.state&&Array.isArray(j.state.done)){st=j.state;save();render();alert('Progress restored.')}else alert('That backup file is not valid.')}catch(err){alert('Could not import that backup.')}e.target.value=''};
-if('serviceWorker' in navigator && location.protocol!=='file:') navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if('serviceWorker' in navigator && location.protocol!=='file:') navigator.serviceWorker.register('./sw.js?v=12',{updateViaCache:'none'}).catch(()=>{});
+
+try{
+  for(let i=localStorage.length-1;i>=0;i--){
+    const k=localStorage.key(i)||'';
+    if(k.startsWith('poster:')||k.startsWith('poster-v')||k.startsWith('amp-og')) localStorage.removeItem(k);
+  }
+}catch(e){}
 
 render();
 })();
